@@ -1,3 +1,5 @@
+-- if setting this up on a new computer - remap CAPS to CONTROL
+
 --[[
 
 =====================================================================
@@ -91,7 +93,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -114,9 +116,9 @@ vim.o.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
-end)
+-- vim.schedule(function()
+--   vim.o.clipboard = 'unnamedplus'
+-- end)
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -159,7 +161,7 @@ vim.o.inccommand = 'split'
 vim.o.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.o.scrolloff = 10
+vim.o.scrolloff = 15
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
@@ -204,6 +206,21 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
+
+-- My added keymaps
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
+vim.keymap.set('x', '<leader>p', [["_dP]])
+vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
+vim.keymap.set('n', '<leader>Y', [["+Y]])
+vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d')
+vim.keymap.set({ 'n', 'v' }, '<C-Q>', '<C-w>q')
+
+vim.keymap.set('n', '<leader>tc', '<cmd>vsplit | terminal claude<CR>', { desc = '[T]erminal [C]laude' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -681,7 +698,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        ts_ls = {},
         --
 
         lua_ls = {
